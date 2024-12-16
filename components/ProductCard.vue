@@ -31,25 +31,33 @@ function handleCartClick(product) {
 
 const isModalVisible = ref(false)
 
-function toggleModalVisibility() {
-    isModalVisible.value = !isModalVisible.value
-    document.body.classList.toggle('overflow-hidden');
+function handleVisibility() {
+    toggleVisibility(isModalVisible)
 }
+
+// QUESTION 7: В этом и еще нескольких компонентах приходится прибегать к такому уродливому решению
+// У меня есть composable фукнция 'toggleVisibility' которая принимает реф объект, но из-за того что в template реф автоматически раскрывается, по итогу
+// в функцию попадает не сам реф объект а примитивное значение из 'value', я попробовал сделать стрелочную функцию в шаблоне, но это не помогло.
+// Как "заставить" функцию в template не распаковывать реф , а передавать его целиком, т.к распаковывать я хочу на уровне composable функции
 
 provide('isModalVisible', isModalVisible)
 provide('product', props.product)
 provide('productFound', productFound)
 
+// QUESTION 2: В данный момент при загрузке страницы кнопка изменяет состояние в зависимости есть ли она в карте, т.е
+// страница загрузилась, по дефолту кнопка "add to cart", через пару мгновений проходит проверка, и заменяется на "remove from cart", если продукт добавлен
+// каким образом лучше всего "отложить" рендер и сразу показать актуальное состояние без обновлений в процессе загрузки?
+
 </script>
 
 <template>
 
-    <ProductModal @toggleModal="toggleModalVisibility" @interactCart="handleCartClick(product)" v-if="isModalVisible">
+    <ProductModal @toggleModal="handleVisibility" @interactCart="handleCartClick(product)" v-if="isModalVisible">
     </ProductModal>
 
     <div v-if="!compactMode" class="card">
 
-        <div class="card-header" @click="toggleModalVisibility">
+        <div class="card-header" @click="handleVisibility">
 
             <div class="relative">
                 <span v-if="product.tooltip" class="card-tooltip absolute"> {{ product.tooltip }}</span>

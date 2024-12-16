@@ -21,11 +21,4 @@ export default defineNuxtConfig({
     // baseURL: '/restaurant-app/',
     // buildAssetsDir: '/restaurant-app/assets/',
   },
-
-  // nitro: {
-  //   preset: 'github-pages',
-  //   prerender: {
-  //     routes: ['api/menu', 'api/coupons'], // Ensure this route is generated statically
-  //   },
-  // },
 });

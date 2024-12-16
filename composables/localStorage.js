@@ -4,9 +4,6 @@ export function saveCartLocally(cartArray) {
 
 export function retrieveCart() {
     return JSON.parse(localStorage.getItem('cart')) ?? []
-    // async not working?
-    // const response = await JSON.parse(localStorage.getItem('cart')) ?? []
-    // return response
 }
 
 export function saveCouponLocally(coupon) {

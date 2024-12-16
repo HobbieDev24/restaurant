@@ -19,7 +19,8 @@ function getBackgroundImg(img) {
 <template>
 
     <TheOverlay @click="$emit('toggleModal')"></TheOverlay>
-    <!-- transition doesn't work -->
+
+    <!-- QUESTION 1.1: transition не работает, не могу понять почему. -->
     <Transition name="fade">
 
         <div class="container relative">

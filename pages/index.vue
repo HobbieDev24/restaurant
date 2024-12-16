@@ -43,13 +43,13 @@ h1 {
 }
 
 .card-container {
-    /* display: flex;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; */
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    justify-content: flex-start;
     gap: 2rem;
     margin-bottom: 4rem;
+
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); */
 }
 </style>

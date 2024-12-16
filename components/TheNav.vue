@@ -24,15 +24,13 @@ onMounted(() => {
     })
 })
 
-function toggleMenuVisibility() {
-    isMenuVisible.value = !isMenuVisible.value
-    document.body.classList.toggle('overflow-hidden')
-}
-
 provide('navLinks', categoryLinks)
 
-</script>
+function handleVisibility() {
+    toggleVisibility(isMenuVisible)
+}
 
+</script>
 
 <template>
 
@@ -56,13 +54,14 @@ provide('navLinks', categoryLinks)
             </div>
             <CartNotification></CartNotification>
 
-            <div @click="toggleMenuVisibility" v-if="isMobile" class="hamburger-icon">
+            <div @click="handleVisibility" v-if="isMobile" class="hamburger-icon">
                 <Icon name="icon-park-outline:hamburger-button" size="2rem"></Icon>
             </div>
 
         </div>
 
-        <HamburgerMenu @closeIconClick="toggleMenuVisibility" v-if="isMobile && isMenuVisible"></HamburgerMenu>
+        <HamburgerMenu @closeIconClick="handleVisibility" v-if="isMobile && isMenuVisible">
+        </HamburgerMenu>
     </nav>
 
 </template>

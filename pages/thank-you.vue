@@ -19,6 +19,12 @@ onBeforeMount(async () => {
     orderNumber.value = await generateOrderNum()
 })
 
+// QUESTION 2.1: По аналогии с вопросом 2, в данный момент код генерится спустя мгновение после загрузки, как  лучше отложить рендер?
+//попробовал onBeforeMount + onMount, не дает нужного эффекта
+
+//QUESTION 3: Не очень разбираюсь в этой теме, можешь дать наводку как лучше подойти к "route guarding", 
+// чтобы страница /thank-you выдавала ошибку, если форма не была заполнена раннее?
+
 onMounted(async () => {
 
     // orderNumber.value = await generateOrderNum()
@@ -27,7 +33,6 @@ onMounted(async () => {
         cart.toggleCartVisibility()
     }
 
-    //add route guards
     removeCartLocally()
     cart.reset()
 })

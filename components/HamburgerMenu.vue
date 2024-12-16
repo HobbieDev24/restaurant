@@ -10,7 +10,7 @@ const emits = defineEmits(['closeIconClick'])
 
     <TheOverlay @click="$emit('closeIconClick')"></TheOverlay>
 
-    <!-- transition doesn't work -->
+    <!-- QUESTION 1: transition не работает, не могу понять почему. -->
     <Transition name="slide">
         <aside class="fixed navigation">
 

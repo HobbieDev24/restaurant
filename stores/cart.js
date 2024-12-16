@@ -94,8 +94,7 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     function toggleCartVisibility() {
-        isCartVisible.value = !isCartVisible.value
-        document.body.classList.toggle('overflow-hidden')
+        toggleVisibility(isCartVisible)
 
         if (!isCartVisible.value && appliedCoupon.value.couponStatus !== 'success') {
             appliedCoupon.value.couponStatus = ''
@@ -118,8 +117,9 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     function showNotification(messageText, prodTitle) {
+        //QUESTION 6: Попытался сделать с таймаутом, не прокатило как задумывалось. Как лучше всего реализовать следующее:
+        // перед тем как показать нотификейш, удали все предыдущие инстанции нотификейшна и отмени прошлые таймауты
 
-        //doesn't work
         // if (timeout) { 
         //     clearTimeout(timeout)
         // }
