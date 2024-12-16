@@ -33,9 +33,10 @@ async function findCouponRate(discountCode) {
             <input placeholder="Coupon code" name="coupon" v-model="cart.appliedCoupon.couponCode" type="text">
             <button @click="findCouponRate(cart.appliedCoupon.couponCode)">Apply</button>
         </div>
-        <p v-if="cart.appliedCoupon.couponStatus === 'success'" class="success">Coupon applied!</p>
-        <p v-if="cart.appliedCoupon.couponStatus === 'fail'" class="fail">This coupon doesn't exist!</p>
-        <p v-if="cart.appliedCoupon.couponStatus === 'missing'" class="missing">No input provided</p>
+        <p v-if="cart.appliedCoupon.couponStatus === 'success'" style="background-color: #DBECDB;">Coupon applied!</p>
+        <p v-if="cart.appliedCoupon.couponStatus === 'fail'" style="background-color: #FFE2DD;">This coupon doesn't
+            exist!</p>
+        <p v-if="cart.appliedCoupon.couponStatus === 'missing'" style="background-color: #FDECCA;">No input provided</p>
     </div>
 
 </template>
@@ -44,24 +45,10 @@ async function findCouponRate(discountCode) {
 <style scoped>
 p {
     border-radius: var(--rounded);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.8rem;
     padding: 0.6rem;
-}
-
-p.success {
-    color: green;
-    background-color: lightgreen;
-}
-
-p.fail {
-    color: var(--red);
-    background-color: lightpink;
-}
-
-p.missing {
-    color: var(--black);
-    background-color: var(--yellow);
+    color: var(--black)
 }
 
 .input-container {

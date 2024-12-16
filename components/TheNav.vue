@@ -62,7 +62,6 @@ provide('navLinks', categoryLinks)
 
         </div>
 
-
         <HamburgerMenu @closeIconClick="toggleMenuVisibility" v-if="isMobile && isMenuVisible"></HamburgerMenu>
     </nav>
 
@@ -135,7 +134,6 @@ li>a {
         font-weight: 700;
     }
 }
-
 
 .cart-icon-container {
     border-radius: var(--rounded);

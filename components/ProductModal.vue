@@ -2,7 +2,6 @@
 
 const product = inject('product')
 const productFound = inject('productFound')
-const isModalVisible = inject('isModalVisible')
 
 const emits = defineEmits(['toggleModal', 'interactCart'])
 
@@ -67,8 +66,6 @@ function getBackgroundImg(img) {
     }
 }
 
-
-/* not optimal */
 .container {
     position: fixed;
     display: flex;
@@ -80,7 +77,6 @@ function getBackgroundImg(img) {
     background-color: white;
     border-radius: var(--rounded);
     width: 70%;
-    /* height: 70%; */
     max-width: 50rem;
     max-height: 50rem;
     padding-left: 2rem;

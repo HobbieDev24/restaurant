@@ -72,7 +72,7 @@ const cart = useCartStore()
     margin: auto;
 
     &>h3 {
-        font-size: 1.6rem;
+        font-size: clamp(1.2rem, 1.072rem + 0.587vw, 1.6rem);
         font-weight: 700;
         margin-bottom: 1rem;
     }
@@ -96,7 +96,7 @@ aside {
     width: 30rem;
     background-color: #F9F9F9;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     z-index: 4;
     padding: 0;
 
@@ -151,11 +151,11 @@ aside {
 .cart-item {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: clamp(0.6rem, 0.536rem + 0.294vw, 0.8rem);
 }
 
 .price-data {
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 0.943rem + 1.174vw, 2rem);
 }
 
 button {
@@ -167,6 +167,10 @@ button {
     &:hover {
         background-color: var(--yellow__darkened);
         scale: 1.05;
+    }
+
+    @media screen and (max-width:768px) {
+        font-size: 0.8rem;
     }
 }
 </style>

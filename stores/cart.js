@@ -34,16 +34,22 @@ export const useCartStore = defineStore('cart', () => {
             return acc + currentVal
         }, 0)
 
-        return Math.round(sum)
+        return roundTwoDecimals(sum)
     })
 
     const appliedDiscount = computed(() => {
-        return Math.round(itemsPrice.value / 100 * appliedCoupon.value.couponRate)
+        const discount = itemsPrice.value / 100 * appliedCoupon.value.couponRate
+        return roundTwoDecimals(discount)
     })
 
     const totalCost = computed(() => {
-        return itemsPrice.value + deliveryCost.value - appliedDiscount.value
+        const cost = itemsPrice.value + deliveryCost.value - appliedDiscount.value
+        return roundTwoDecimals(cost)
     })
+
+    function roundTwoDecimals(amount) {
+        return parseFloat(amount.toFixed(2))
+    }
 
     function addToCart(item) {
         item.qty = 1
@@ -89,6 +95,7 @@ export const useCartStore = defineStore('cart', () => {
 
     function toggleCartVisibility() {
         isCartVisible.value = !isCartVisible.value
+        document.body.classList.toggle('overflow-hidden')
 
         if (!isCartVisible.value && appliedCoupon.value.couponStatus !== 'success') {
             appliedCoupon.value.couponStatus = ''

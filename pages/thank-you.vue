@@ -21,13 +21,12 @@ onBeforeMount(async () => {
 
 onMounted(async () => {
 
-    orderNumber.value = await generateOrderNum()
+    // orderNumber.value = await generateOrderNum()
 
     if (cart.isCartVisible) {
         cart.toggleCartVisibility()
     }
 
-    // localStorage.clear()
     //add route guards
     removeCartLocally()
     cart.reset()

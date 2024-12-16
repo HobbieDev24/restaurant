@@ -20,4 +20,3 @@ export function retrieveCoupon() {
 export function removeCartLocally() {
     localStorage.removeItem('cart')
 }
-

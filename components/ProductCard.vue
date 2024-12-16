@@ -228,7 +228,7 @@ provide('productFound', productFound)
 }
 
 .card__compact .card-description {
-    font-size: 0.8rem;
+    font-size: clamp(0.6rem, 0.536rem + 0.294vw, 0.8rem);
 }
 
 .card__compact .card-image {
@@ -237,7 +237,7 @@ provide('productFound', productFound)
 }
 
 .card__compact .card-title {
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 0.872rem + 0.587vw, 1.4rem);
     margin-bottom: 0.4rem;
 }
 </style>
