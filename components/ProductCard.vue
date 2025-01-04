@@ -13,7 +13,9 @@ const props = defineProps({
     }
 })
 
+
 const cart = useCartStore()
+
 const productFound = computed(() => {
     return cart.findItem(props.product)
 })
@@ -31,33 +33,26 @@ function handleCartClick(product) {
 
 const isModalVisible = ref(false)
 
+//dummy fn because of automatic ref unwrapping
 function handleVisibility() {
     toggleVisibility(isModalVisible)
 }
-
-// QUESTION 7: В этом и еще нескольких компонентах приходится прибегать к такому уродливому решению
-// У меня есть composable фукнция 'toggleVisibility' которая принимает реф объект, но из-за того что в template реф автоматически раскрывается, по итогу
-// в функцию попадает не сам реф объект а примитивное значение из 'value', я попробовал сделать стрелочную функцию в шаблоне, но это не помогло.
-// Как "заставить" функцию в template не распаковывать реф , а передавать его целиком, т.к распаковывать я хочу на уровне composable функции
 
 provide('isModalVisible', isModalVisible)
 provide('product', props.product)
 provide('productFound', productFound)
 
-// QUESTION 2: В данный момент при загрузке страницы кнопка изменяет состояние в зависимости есть ли она в карте, т.е
-// страница загрузилась, по дефолту кнопка "add to cart", через пару мгновений проходит проверка, и заменяется на "remove from cart", если продукт добавлен
-// каким образом лучше всего "отложить" рендер и сразу показать актуальное состояние без обновлений в процессе загрузки?
-
 </script>
 
 <template>
 
-    <ProductModal @toggleModal="handleVisibility" @interactCart="handleCartClick(product)" v-if="isModalVisible">
+    <ProductModal @toggleModal="handleVisibility" @interactCart="handleCartClick(product)">
     </ProductModal>
 
     <div v-if="!compactMode" class="card">
 
         <div class="card-header" @click="handleVisibility">
+
 
             <div class="relative">
                 <span v-if="product.tooltip" class="card-tooltip absolute"> {{ product.tooltip }}</span>
@@ -109,6 +104,8 @@ provide('productFound', productFound)
         </div>
     </div>
 
+
+
 </template>
 
 
@@ -126,9 +123,8 @@ provide('productFound', productFound)
 
 .card-image {
     width: 100%;
-    height: fit-content;
-    aspect-ratio: 1/1;
-    max-width: 100%;
+    height: 280px;
+    object-fit: cover;
     margin-bottom: 2rem;
     border-radius: var(--rounded);
 }

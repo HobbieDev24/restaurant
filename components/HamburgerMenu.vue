@@ -8,24 +8,19 @@ const emits = defineEmits(['closeIconClick'])
 
 <template>
 
-    <TheOverlay @click="$emit('closeIconClick')"></TheOverlay>
+    <aside class="fixed">
 
-    <!-- QUESTION 1: transition не работает, не могу понять почему. -->
-    <Transition name="slide">
-        <aside class="fixed navigation">
+        <div @click="$emit('closeIconClick')" class="close-icon absolute">
+            <Icon name="material-symbols:close" size="2rem"></Icon>
+        </div>
 
-            <div @click="$emit('closeIconClick')" class="close-icon absolute">
-                <Icon name="material-symbols:close" size="2rem"></Icon>
-            </div>
+        <ul>
+            <li @click="$emit('closeIconClick')" v-for="link in navLinks">
+                <a :href="'/#' + link"> {{ link }} </a>
+            </li>
+        </ul>
 
-            <ul>
-                <li @click="$emit('closeIconClick')" v-for="link in navLinks">
-                    <a :href="'/#' + link"> {{ link }} </a>
-                </li>
-            </ul>
-
-        </aside>
-    </Transition>
+    </aside>
 
 </template>
 
@@ -38,7 +33,7 @@ aside {
     background-color: #F9F9F9;
     overflow-x: hidden;
     overflow-y: scroll;
-    z-index: 4;
+    z-index: 5;
     padding: 4rem 2rem;
 }
 

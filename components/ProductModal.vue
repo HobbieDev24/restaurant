@@ -2,6 +2,7 @@
 
 const product = inject('product')
 const productFound = inject('productFound')
+const isModalVisible = inject('isModalVisible')
 
 const emits = defineEmits(['toggleModal', 'interactCart'])
 
@@ -18,12 +19,10 @@ function getBackgroundImg(img) {
 
 <template>
 
-    <TheOverlay @click="$emit('toggleModal')"></TheOverlay>
+    <TheOverlay v-if="isModalVisible" @click="$emit('toggleModal')"></TheOverlay>
 
-    <!-- QUESTION 1.1: transition не работает, не могу понять почему. -->
     <Transition name="fade">
-
-        <div class="container relative">
+        <div v-if="isModalVisible" class="container relative">
             <div @click="$emit('toggleModal')" class="absolute close-icon-container">
                 <Icon name="material-symbols:close" size="1.2rem" class="close-icon absolute"></Icon>
             </div>

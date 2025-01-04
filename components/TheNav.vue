@@ -33,6 +33,7 @@ function handleVisibility() {
 </script>
 
 <template>
+    <TheOverlay v-if="isMobile && isMenuVisible" @click="handleVisibility"></TheOverlay>
 
     <nav>
         <div class="nav-left">
@@ -60,8 +61,13 @@ function handleVisibility() {
 
         </div>
 
-        <HamburgerMenu @closeIconClick="handleVisibility" v-if="isMobile && isMenuVisible">
-        </HamburgerMenu>
+        <Transition name="slide">
+            <HamburgerMenu v-if="isMobile && isMenuVisible" @closeIconClick="handleVisibility">
+            </HamburgerMenu>
+        </Transition>
+
+        <!-- <TheOverlay v-if="isMobile && isMenuVisible" @click="handleVisibility"></TheOverlay> -->
+
     </nav>
 
 </template>
@@ -88,11 +94,11 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 2;
+    z-index: 3;
     background-color: var(--grey);
 }
 

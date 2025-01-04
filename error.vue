@@ -12,7 +12,7 @@ const handleClearError = () => {
     <div class="container">
         <h1> Woops.. there is a {{ error.statusCode }} error</h1>
         <p> {{ error.message }}</p>
-        <img src="/assets/404.svg">
+        <img v-if="error.statusCode === 404" src="/assets/404.svg">
         <button @click="handleClearError">Back to homepage</button>
     </div>
 </template>
@@ -34,11 +34,11 @@ h1 {
 }
 
 img {
-    margin-bottom: 2rem;
     max-width: 20rem;
 }
 
 button {
+    margin-top: 2rem;
     border-radius: var(--rounded);
     background-color: var(--yellow);
     padding: 0.8rem 1.2rem;

@@ -2,6 +2,10 @@
 
 const cart = useCartStore()
 
+definePageMeta({
+    middleware: ['route-checkout']
+})
+
 onMounted(() => {
     if (cart.isCartVisible) {
         cart.toggleCartVisibility()

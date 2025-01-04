@@ -6,21 +6,29 @@ useSeoMeta({
 })
 
 const data = await $fetch('/api/menu')
+const cart = useCartStore()
+
+onMounted(() => {
+    cart.initializeCart()
+})
 
 </script>
 
 <template>
     <div>
-        <div v-for="category in data">
-            <h1 :id="category.categoryName"> {{ category.categoryName }} </h1>
-            <p>{{ category.categoryDescription }}</p>
+        <div v-if="!cart.isInitialized">Loading...</div>
 
-            <div class="card-container">
-                <ProductCard v-for="product in category.products" :key="product.id" :product="product"
-                    :compact-mode="false">
-                </ProductCard>
+        <div v-else>
+            <div v-for="category in data">
+                <h1 :id="category.categoryName"> {{ category.categoryName }} </h1>
+                <p>{{ category.categoryDescription }}</p>
+
+                <div class="card-container">
+                    <ProductCard v-for="product in category.products" :key="product.id" :product="product"
+                        :compact-mode="false">
+                    </ProductCard>
+                </div>
             </div>
-
         </div>
     </div>
 </template>

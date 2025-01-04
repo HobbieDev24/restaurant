@@ -1,8 +1,10 @@
 <script setup>
 
-const cart = useCartStore()
+definePageMeta({
+    middleware: ['route-thank-you']
+})
 
-const orderNumber = ref('')
+const cart = useCartStore()
 
 async function generateOrderNum() {
     const orderNums = []
@@ -15,26 +17,16 @@ async function generateOrderNum() {
     return orderNums.join('')
 }
 
-onBeforeMount(async () => {
-    orderNumber.value = await generateOrderNum()
-})
-
-// QUESTION 2.1: По аналогии с вопросом 2, в данный момент код генерится спустя мгновение после загрузки, как  лучше отложить рендер?
-//попробовал onBeforeMount + onMount, не дает нужного эффекта
-
-//QUESTION 3: Не очень разбираюсь в этой теме, можешь дать наводку как лучше подойти к "route guarding", 
-// чтобы страница /thank-you выдавала ошибку, если форма не была заполнена раннее?
+const { data: orderNumber, status } = await useAsyncData('key', generateOrderNum)
 
 onMounted(async () => {
-
-    // orderNumber.value = await generateOrderNum()
 
     if (cart.isCartVisible) {
         cart.toggleCartVisibility()
     }
 
-    removeCartLocally()
     cart.reset()
+
 })
 
 useSeoMeta({
@@ -45,7 +37,7 @@ useSeoMeta({
 </script>
 
 <template>
-    <div class="ty-container">
+    <div v-if="status === 'success'" class="ty-container">
         <img src="/assets/order-confirmed.svg">
         <h1>Success!</h1>
         <p>Your order number is {{ orderNumber }}</p>

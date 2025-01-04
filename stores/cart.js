@@ -4,6 +4,8 @@ export const useCartStore = defineStore('cart', () => {
     const cartItems = ref([])
     const isCartVisible = ref(false)
     const deliveryCost = ref(5)
+    const isInitialized = ref(false)
+    const formSubmitted = ref(false)
 
     const appliedCoupon = ref({
         couponCode: '',
@@ -17,6 +19,8 @@ export const useCartStore = defineStore('cart', () => {
         text: '',
         title: ''
     })
+
+    let notificationTimeout = null
 
     const itemsQty = computed(() => {
         return cartItems.value.length
@@ -59,7 +63,8 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     function removeFromCart(item) {
-        cartItems.value.splice(cartItems.value.indexOf(item), 1)
+        const itemIndex = cartItems.value.findIndex((cartItem) => cartItem.id === item.id)
+        cartItems.value.splice(itemIndex, 1)
         saveCartLocally(cartItems.value)
         showNotification('Removed from cart', item.title)
     }
@@ -67,16 +72,13 @@ export const useCartStore = defineStore('cart', () => {
     function incrementItem(productTitle) {
         const foundItem = cartItems.value.find((item) => item.title === productTitle)
 
-        if (foundItem.qty === 10) {
-            return
-        }
+        if (foundItem.qty === 10) return
 
         else {
             foundItem.qty++
         }
 
         saveCartLocally(cartItems.value)
-
     }
 
     function decrementItem(productTitle) {
@@ -114,37 +116,40 @@ export const useCartStore = defineStore('cart', () => {
         appliedCoupon.value.couponCode = ''
         appliedCoupon.value.couponRate = 0
         appliedCoupon.value.couponStatus = ''
+        formSubmitted.value = false
+        removeCartLocally()
     }
 
     function showNotification(messageText, prodTitle) {
-        //QUESTION 6: Попытался сделать с таймаутом, не прокатило как задумывалось. Как лучше всего реализовать следующее:
-        // перед тем как показать нотификейш, удали все предыдущие инстанции нотификейшна и отмени прошлые таймауты
 
-        // if (timeout) { 
-        //     clearTimeout(timeout)
-        // }
+        if (notificationTimeout) {
+            clearTimeout(notificationTimeout)
+        }
 
         notificationContent.value.text = messageText
         notificationContent.value.title = prodTitle
 
         isNotificationVisible.value = true
 
-        const timeout = setTimeout(() => {
+        notificationTimeout = setTimeout(() => {
             isNotificationVisible.value = false
         }, 1600)
     }
 
-    onMounted(() => {
-        cartItems.value = retrieveCart()
-        appliedCoupon.value.couponCode = retrieveCoupon()?.code ?? ''
-        appliedCoupon.value.couponRate = retrieveCart()?.rate ?? 0
-    })
+    function initializeCart() {
+        if (!isInitialized.value) {
+            cartItems.value = retrieveCart()
+            appliedCoupon.value.couponCode = retrieveCoupon()?.code ?? ''
+            appliedCoupon.value.couponRate = retrieveCart()?.rate ?? 0
+            isInitialized.value = true
+        }
+    }
 
     return {
         cartItems, isCartVisible, addToCart, removeFromCart,
         itemsPrice, itemsQty, incrementItem, decrementItem,
         deliveryCost, toggleCartVisibility, findItem, reset,
         isNotificationVisible, showNotification, notificationContent, appliedCoupon,
-        appliedDiscount, totalCost
+        appliedDiscount, totalCost, notificationTimeout, isInitialized, formSubmitted, initializeCart
     }
 })

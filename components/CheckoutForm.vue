@@ -3,6 +3,7 @@
 const cart = useCartStore()
 
 async function handleSubmit() {
+    cart.formSubmitted = true
     await navigateTo('thank-you')
 }
 
