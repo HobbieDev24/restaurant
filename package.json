@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "gh-pages -d dist"
+    "deploy": "nuxt build && wrangler deploy",
+    "cf-preview": "nuxt build && wrangler dev"
   },
   "dependencies": {
     "@nuxt/icon": "^1.9.1",
@@ -21,6 +22,6 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "gh-pages": "^6.2.0"
+    "wrangler": "^4.114.0"
   }
 }
